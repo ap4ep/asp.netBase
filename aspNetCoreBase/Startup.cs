@@ -1,4 +1,3 @@
-using System;
 using aspNetCoreBase.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +25,16 @@ namespace aspNetCoreBase
                 options.UseSqlServer(Configuration.GetConnectionString("aspConnection"));
             });
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options => 
+            {
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz";
+                options.User.RequireUniqueEmail = true;
+            })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
