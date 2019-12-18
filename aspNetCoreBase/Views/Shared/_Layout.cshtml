@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/bootstrap/css/bootstrap-reboot.css" rel="stylesheet" />
+    <title>@ViewData["Title"] - Shop</title>
+</head>
+<body>
+    <header>
+        Main Page
+        <br />
+        @if (User.Identity.IsAuthenticated)
+        {
+            <p>@User.Identity.Name</p>
+
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <input type="submit" value="Выход" />
+            </form>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">Вход</a>
+            <a asp-controller="Account" asp-action="Register">Регистрация</a>
+        }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
